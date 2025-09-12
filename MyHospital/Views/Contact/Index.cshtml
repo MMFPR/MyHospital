@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "تواصل معنا";
+}
+
+<div class="container py-5">
+    <!-- العنوان والوصف -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-primary">تواصل معنا</h1>
+        <p class="lead text-muted">
+            يسعدنا تواصلك معنا للإجابة عن استفساراتك أو ملاحظاتك حول المنصّة.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <!-- نموذج التواصل -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-success">أرسل لنا رسالة</h5>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-control" placeholder="اكتب اسمك">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" placeholder="name@example.com">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">الرسالة</label>
+                            <textarea class="form-control" rows="4" placeholder="اكتب رسالتك هنا"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">📩 إرسال</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- معلومات الاتصال -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 text-success">معلومات الاتصال</h5>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-2"><strong>📧 البريد الإلكتروني:</strong> support@example.com</li>
+                        <li class="mb-2"><strong>📞 الهاتف:</strong> 920000000</li>
+                        <li class="mb-2"><strong>📍 العنوان:</strong> الرياض - المملكة العربية السعودية</li>
+                    </ul>
+
+                    <h5 class="mt-4 mb-3 text-success">أوقات العمل</h5>
+                    <p class="text-secondary">🕒 من الأحد إلى الخميس — من 8 صباحًا إلى 5 مساءً</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
