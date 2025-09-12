@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "الدخول أو إنشاء حساب";
+}
+
+<div class="container py-5">
+    <!-- العنوان الرئيسي -->
+    <div class="text-center mb-4">
+        <h1 class="fw-bold text-primary">مرحبًا بك</h1>
+        <p class="lead text-muted">اختر الطريقة المناسبة للدخول أو إنشاء حساب جديد في منصتنا الطبية.</p>
+    </div>
+
+    <!-- التبويبات -->
+    <ul class="nav nav-tabs justify-content-center mb-4" id="authTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active fw-semibold" id="login-tab" data-bs-toggle="tab" data-bs-target="#login"
+                    type="button" role="tab" aria-controls="login" aria-selected="true">
+                🔐 تسجيل الدخول
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold" id="register-tab" data-bs-toggle="tab" data-bs-target="#register"
+                    type="button" role="tab" aria-controls="register" aria-selected="false">
+                📝 إنشاء حساب جديد
+            </button>
+        </li>
+    </ul>
+
+    <!-- محتوى التبويبات -->
+    <div class="tab-content" id="authTabsContent">
+        <!-- 🟢 تبويب تسجيل الدخول -->
+        <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+            <div class="card shadow-sm border-0 mx-auto" style="max-width: 450px;">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-success text-center">تسجيل الدخول</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" placeholder="name@example.com" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" placeholder="••••••••" required />
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">تذكرني</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">🔓 دخول</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🟢 تبويب إنشاء حساب جديد -->
+        <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+            <div class="card shadow-sm border-0 mx-auto" style="max-width: 450px;">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-success text-center">إنشاء حساب جديد</h5>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-control" placeholder="اكتب اسمك الكامل" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" placeholder="name@example.com" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" placeholder="••••••••" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" class="form-control" placeholder="••••••••" required />
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">📝 تسجيل</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
