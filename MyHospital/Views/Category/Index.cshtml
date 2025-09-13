@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Category>
+@{
     ViewData["Title"] = "الفئات الطبية";
 }
 
@@ -11,64 +12,18 @@
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">الباطنة العامة</h5>
-                    <p class="card-text">تشخيص وعلاج الأمراض الباطنية المزمنة والحادة.</p>
+        @foreach (var category in Model)
+        {
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">@category.Name</h5>
+                        <p class="card-text">@category.Description</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">طب الأطفال</h5>
-                    <p class="card-text">رعاية صحية شاملة للأطفال منذ الولادة حتى المراهقة.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">النساء والولادة</h5>
-                    <p class="card-text">متابعة الحمل، الولادة، وعلاج أمراض النساء.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">طب القلب</h5>
-                    <p class="card-text">تشخيص أمراض القلب والشرايين ومتابعة المرضى.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">العيون</h5>
-                    <p class="card-text">فحوصات وتشخيص أمراض العيون والعمليات البصرية.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- بطاقة تخصص -->
-        <div class="col">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">الأنف والأذن والحنجرة</h5>
-                    <p class="card-text">علاج أمراض الجهاز التنفسي العلوي والحساسية.</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
+
+

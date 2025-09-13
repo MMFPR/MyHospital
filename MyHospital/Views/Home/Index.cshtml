@@ -1,8 +1,69 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الصفحة الرئيسية";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <!-- بانر ترحيبي -->
+    <div class="p-5 mb-5 bg-light rounded-4 shadow-sm text-center">
+        <h1 class="display-5 fw-bold text-primary">مرحبًا بك في منصة MyHospital</h1>
+        <p class="fs-5 text-muted mt-3">
+            منصّة طبية رقمية موحّدة تتيح لك الوصول إلى جميع بياناتك الصحية من مختلف المستشفيات والعيادات في مكان واحد.
+        </p>
+        <a class="btn btn-primary btn-lg px-4 mt-3" asp-controller="Account" asp-action="Auth">
+            🚀 ابدأ الآن
+        </a>
+    </div>
+
+    <!-- الخدمات -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-success">خدماتنا الرئيسية</h2>
+        <p class="text-muted">نحن نوفّر لك أدوات متكاملة لإدارة صحتك بكل سهولة وأمان.</p>
+    </div>
+
+    <div class="row g-4 text-center">
+        <!-- سجل صحي موحد -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-success">📋 سجل صحي موحد</h5>
+                    <p class="card-text text-secondary">
+                        عرض جميع تحاليلك، صور الأشعة، والوصفات الطبية في سجل واحد متكامل.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ربط مع المراكز الطبية -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-success">🏥 ربط مع المراكز الطبية</h5>
+                    <p class="card-text text-secondary">
+                        ربط تلقائي مع المستشفيات والعيادات المشاركة لمزامنة بياناتك الصحية.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- الوصول في أي وقت -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-success">📱 الوصول في أي وقت</h5>
+                    <p class="card-text text-secondary">
+                        الوصول إلى ملفك الطبي من الويب أو التطبيق في أي وقت وأي مكان.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- دعوة للتسجيل -->
+<div class="bg-primary text-white text-center py-5 mt-5 rounded-0">
+    <h2 class="fw-bold">ابدأ رحلتك الصحية الآن</h2>
+    <p class="mt-3 fs-5">سجّل حسابك واحتفظ بكل تاريخك الطبي في منصة واحدة آمنة</p>
+    <a class="btn btn-light btn-lg px-4 mt-2" asp-controller="Account" asp-action="Auth">
+        📝 إنشاء حساب
+    </a>
 </div>
