@@ -4,12 +4,17 @@
 }
 
 <div class="container py-5">
-    <div class="text-center mb-4">
+    <div class="p-5 mb-5 bg-light rounded-4 shadow-sm text-center">
         <h1 class="fw-bold text-primary">الفئات الطبية</h1>
-        <p class="lead text-muted">
+        <p class="fs-5 text-muted mt-3">
             تصفّح التخصصات الطبية المتاحة في المنصّة، واختر القسم المناسب لاحتياجاتك.
         </p>
+        <a class="btn btn-primary btn-lg px-4 mt-3" asp-controller="Category" asp-action="Manage">
+            الاضافة | التعديل | الحذف
+        </a>
     </div>
+
+
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var category in Model)
