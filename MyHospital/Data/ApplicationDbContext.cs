@@ -16,6 +16,10 @@ namespace MyHospital.Data
 
         public DbSet<Category> Categories { get; set; } 
         public DbSet<Service> Services { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Nationality> Nationalities { get; set; }
+        public DbSet<Job> Jobs { get; set; }
 
     }
 

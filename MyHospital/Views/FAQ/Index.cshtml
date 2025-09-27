@@ -2,7 +2,7 @@
     ViewData["Title"] = "الأسئلة الشائعة";
 }
 
-<div class="container py-5">
+<div class="container-fluid py-5">
     <!-- العنوان والوصف -->
     <div class="text-center mb-5">
         <h1 class="fw-bold text-primary">الأسئلة الشائعة</h1>
@@ -12,9 +12,9 @@
     </div>
 
     <!-- الأسئلة داخل Accordion -->
-    <div class="accordion accordion-flush" id="faqAccordion">
+    <div class="accordion" id="faqAccordion">
         <!-- السؤال 1 -->
-        <div class="accordion-item border rounded mb-3 shadow-sm">
+        <div class="accordion-item mb-4 shadow-sm border rounded">
             <h2 class="accordion-header" id="q1">
                 <button class="accordion-button fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#a1" aria-expanded="true" aria-controls="a1">
                     🔐 هل بياناتي الصحية آمنة داخل المنصة؟
@@ -28,7 +28,7 @@
         </div>
 
         <!-- السؤال 2 -->
-        <div class="accordion-item border rounded mb-3 shadow-sm">
+        <div class="accordion-item mb-4 shadow-sm border rounded">
             <h2 class="accordion-header" id="q2">
                 <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#a2" aria-expanded="false" aria-controls="a2">
                     🏥 كيف يمكنني ربط سجلي الطبي من مركز طبي آخر؟
@@ -42,7 +42,7 @@
         </div>
 
         <!-- السؤال 3 -->
-        <div class="accordion-item border rounded mb-3 shadow-sm">
+        <div class="accordion-item mb-4 shadow-sm border rounded">
             <h2 class="accordion-header" id="q3">
                 <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#a3" aria-expanded="false" aria-controls="a3">
                     👨‍⚕️ هل أستطيع مشاركة بياناتي مع طبيب محدد فقط؟
@@ -56,7 +56,7 @@
         </div>
 
         <!-- السؤال 4 -->
-        <div class="accordion-item border rounded mb-3 shadow-sm">
+        <div class="accordion-item mb-4 shadow-sm border rounded">
             <h2 class="accordion-header" id="q4">
                 <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#a4" aria-expanded="false" aria-controls="a4">
                     📄 هل يمكنني تحميل نسخة من ملفي الطبي الكامل؟
