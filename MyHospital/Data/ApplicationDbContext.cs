@@ -20,7 +20,7 @@ namespace MyHospital.Data
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Nationality> Nationalities { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<FAQ> FAQs { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
         
 
     }

@@ -1,11 +1,11 @@
-﻿@model FAQ
+﻿@model Faq
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Add FAQ</h1>
+<h1>Add Faq</h1>
 
-<form method="post" asp-action="Create">
+<form method="post" asp-action="Edit">
 
     <div class="mb-3">
         <label asp-for="Question" class="form-label"></label>
@@ -18,7 +18,7 @@
 
     </div>
 
-    <button type="submit" class="btn btn-outline-primary">Save</button>
+    <button type="submit" class="btn btn-outline-primary">Update</button>
     <a asp-action="Index" class="btn btn-dark">Back</a>
 
 </form>

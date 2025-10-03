@@ -5,13 +5,13 @@
 namespace MyHospital.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTableFAQs03102025 : Migration
+    public partial class AddTableFaqs03102025 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "FAQs",
+                name: "Faqs",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace MyHospital.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FAQs", x => x.Id);
+                    table.PrimaryKey("PK_Faqs", x => x.Id);
                 });
         }
 
@@ -29,7 +29,7 @@ namespace MyHospital.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FAQs");
+                name: "Faqs");
         }
     }
 }

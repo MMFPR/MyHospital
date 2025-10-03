@@ -12,8 +12,8 @@ using MyHospital.Data;
 namespace MyHospital.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251003064001_AddTableFAQs03102025")]
-    partial class AddTableFAQs03102025
+    [Migration("20251003064001_AddTableFaqs03102025")]
+    partial class AddTableFaqs03102025
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,7 +120,7 @@ namespace MyHospital.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("MyHospital.Models.FAQ", b =>
+            modelBuilder.Entity("MyHospital.Models.Faq", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,7 +138,7 @@ namespace MyHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FAQs");
+                    b.ToTable("Faqs");
                 });
 
             modelBuilder.Entity("MyHospital.Models.Job", b =>

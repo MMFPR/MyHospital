@@ -117,7 +117,7 @@ namespace MyHospital.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("MyHospital.Models.FAQ", b =>
+            modelBuilder.Entity("MyHospital.Models.Faq", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace MyHospital.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FAQs");
+                    b.ToTable("Faqs");
                 });
 
             modelBuilder.Entity("MyHospital.Models.Job", b =>
