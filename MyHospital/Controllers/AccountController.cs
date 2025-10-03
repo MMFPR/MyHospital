@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using majed_asp_mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
 using MyHospital.Data;
 
 namespace MyHospital.Controllers
 {
+    //[SessionAuthorize]
     public class AccountController : Controller
     {
 

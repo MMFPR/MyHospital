@@ -6,25 +6,24 @@ using MyHospital.Models;
 namespace MyHospital.Controllers
 {
     [SessionAuthorize]
-    public class CategoryController : Controller
-    { 
+    public class NationalitiesController : Controller
+    {
 
         private readonly ApplicationDbContext _context;
-        public CategoryController(ApplicationDbContext context)
+        public NationalitiesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
+
         //----------------------------------------------------
-
-
 
         public IActionResult Index()
         {
             try
             {
-                IEnumerable<Category> categories = _context.Categories.ToList();
-                return View(categories);
+                IEnumerable<Nationality> nationalities = _context.Nationalities.ToList();
+                return View(nationalities);
             }
             catch (Exception ex)
             {
@@ -43,16 +42,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Category category)
+        public IActionResult Create(Nationality nationality)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(category);
+                    return View(nationality);
                 }
 
-                _context.Categories.Add(category);
+                _context.Nationalities.Add(nationality);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,21 +64,21 @@ namespace MyHospital.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            var category = _context.Categories.Find(Id);
-            return View(category);
+            var nationality = _context.Nationalities.Find(Id);
+            return View(nationality);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        public IActionResult Edit(Nationality nationality)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return View(category);
+                    return View(nationality);
                 }
 
-                _context.Categories.Update(category);
+                _context.Nationalities.Update(nationality);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -93,16 +92,16 @@ namespace MyHospital.Controllers
         [HttpGet]
         public IActionResult Delete(int Id)
         {
-            var category = _context.Categories.Find(Id);
-            return View(category);
+            var nationality = _context.Nationalities.Find(Id);
+            return View(nationality);
         }
 
         [HttpPost]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(Nationality nationality)
         {
             try
             {
-                _context.Categories.Remove(category);
+                _context.Nationalities.Remove(nationality);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -113,20 +112,8 @@ namespace MyHospital.Controllers
         }
 
 
-        // صفحة الإدارة (قائمة جدوليّة لإدارة الفئات)
-        [HttpGet]
-        public IActionResult Manage()
-        {
-            try
-            {
-                IEnumerable<Category> categories = _context.Categories.ToList();
-                return View(categories);
-            }
-            catch (Exception ex)
-            {
-                return Content("حدث خطا غير متوقع يرجي مراجهة الدعم الفني:0565455252545");
-            }
-        }
+
+
 
 
 

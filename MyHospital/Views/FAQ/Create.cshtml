@@ -1,0 +1,24 @@
+﻿@model FAQ
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add FAQ</h1>
+
+<form method="post" asp-action="Create">
+
+    <div class="mb-3">
+        <label asp-for="Question" class="form-label"></label>
+        <input asp-for="Question" name="Question" class="form-control" />
+        <span asp-validation-for="Question" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Answer" class="form-label"></label>
+        <textarea asp-for="Answer" name="Answer" class="form-control"></textarea>
+
+    </div>
+
+    <button type="submit" class="btn btn-outline-primary">Save</button>
+    <a asp-action="Index" class="btn btn-dark">Back</a>
+
+</form>

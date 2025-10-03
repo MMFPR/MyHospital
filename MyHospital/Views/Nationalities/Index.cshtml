@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Nationality>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Nationality</h1>
+
+<div class="container-fluid">
+
+    <div class="text-end mb-3">
+
+        <a asp-controller="Nationalities" asp-action="Create" class="btn btn-outline-primary">Add New</a>
+
+    </div>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var nationality in Model)
+                {
+
+                    <tr>
+                        <td>@nationality.Id</td>
+                        <td>@nationality.Name</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-Id="@nationality.Id" class="btn btn-outline-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-Id="@nationality.Id" class="btn btn-outline-danger">Delete</a>
+                        </td>
+                    </tr>
+
+                }
+
+
+            </tbody>
+        </table>
+
+    </div>
+</div>

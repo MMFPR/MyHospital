@@ -1,11 +1,11 @@
 using System.Diagnostics;
+using majed_asp_mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using MyHospital.Models;
 
 namespace MyHospital.Controllers
 {
-
-    //[SessionAuthorize]
+    [SessionAuthorize]
     public class HomeController : Controller
     {
 

@@ -10,8 +10,6 @@ namespace MyHospital.Controllers
     public class DepartmentsController : Controller
     {
 
-
-
         private readonly ApplicationDbContext _context;
         public DepartmentsController(ApplicationDbContext context)
         {
