@@ -23,6 +23,16 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Nationality> nationalities = _context.Nationalities.ToList();
+
+                ////تحديث Uid 
+                //foreach (var item in nationalities)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
+
+                //    _context.Nationalities.Update(item);
+                //    _context.SaveChanges();
+                //}
+
                 return View(nationalities);
             }
             catch (Exception ex)

@@ -24,6 +24,14 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Job> jobs = _context.Jobs.ToList();
+
+                ////تحديث Uid 
+                //foreach (var item in jobs)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
+                //    _context.Jobs.Update(item);
+                //    _context.SaveChanges();
+                //}
                 return View(jobs);
             }
             catch (Exception ex)

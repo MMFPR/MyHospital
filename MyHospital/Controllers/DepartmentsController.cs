@@ -25,6 +25,16 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Department> depts = _context.Departments.ToList();
+
+                ////تحديث Uid 
+                //foreach (var item in depts)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
+                    
+                //    _context.Departments.Update(item);
+                //    _context.SaveChanges();
+                //}
+
                 return View(depts);
             }
             catch (Exception ex)

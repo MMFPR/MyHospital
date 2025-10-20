@@ -7,15 +7,16 @@ namespace MyHospital.Models
     {
         [Key]
         public int Id { get; set; }
+        public string Uid { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
         public string Gender { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string Phone { get; set; }
-
         public string Address { get; set; }
         public string? Position { get; set; }
         public decimal Salary { get; set; }
+        public DateTime CreatAccount { get; set; } = DateTime.Now;
 
 
         //--------------------

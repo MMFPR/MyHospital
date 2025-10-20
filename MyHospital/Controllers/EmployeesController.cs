@@ -1,9 +1,10 @@
 ﻿using majed_asp_mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MyHospital.Data;
 using MyHospital.Models;
-using Microsoft.EntityFrameworkCore;
+using System;
 
 
 namespace MyHospital.Controllers
@@ -27,6 +28,17 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Employee> emp = _context.Employees.Include(e => e.Department).Include(j => j.Job).Include(n => n.Nationality).ToList();
+
+                // //تحديث Uid 
+                //foreach(var item in emp)
+                //{
+                //    //item.Uid = Guid.NewGuid().ToString();
+                //    // تحديث التاريخ الانشاء
+                //    item.CreatAccount = DateTime.Now;
+                //    _context.Employees.Update(item);
+                //    _context.SaveChanges();
+                //}
+
                 return View(emp);
 
             }
@@ -96,7 +108,7 @@ namespace MyHospital.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            var emp = _context.Employees.Find(Id);
+            var emp = _context.Employees.Find(Id); 
             SetNationalityViewBag();
             SetJobViewBag();
             SetDeptViewBag();
@@ -104,7 +116,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee emp)
+        public IActionResult Edit(Employee emp , int Id)
         {
             try
             {

@@ -24,6 +24,15 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Category> categories = _context.Categories.ToList();
+
+                ////تحديث Uid 
+                //foreach (var item in categories)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
+                //    _context.Categories.Update(item);
+                //    _context.SaveChanges();
+                //}
+
                 return View(categories);
             }
             catch (Exception ex)

@@ -24,6 +24,16 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Faq> faq = _context.Faqs.ToList();
+
+                //تحديث Uid 
+                foreach (var item in faq)
+                {
+                    item.Uid = Guid.NewGuid().ToString();
+
+                    _context.Faqs.Update(item);
+                    _context.SaveChanges();
+                }
+
                 return View(faq);
             }
             catch (Exception ex)

@@ -8,7 +8,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSession(builder =>
 {
-    builder.IdleTimeout = TimeSpan.FromMinutes(15);
+    builder.IdleTimeout = TimeSpan.FromMinutes(10);
     builder.Cookie.HttpOnly = true;
     builder.Cookie.IsEssential = true;
 });
