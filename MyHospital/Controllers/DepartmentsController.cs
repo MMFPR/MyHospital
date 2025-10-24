@@ -54,6 +54,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Department dept)
         {
             try
@@ -74,14 +75,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var dept = _context.Departments.Find(Id);
+            //var dept = _context.Departments.Find(Id);
+            var dept = _context.Departments.FirstOrDefault(e => e.Uid == Uid);
             return View(dept);
         }
 
         [HttpPost]
-        public IActionResult Edit(Department dept)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Department dept, string Uid)
         {
             try
             {
@@ -90,9 +93,16 @@ namespace MyHospital.Controllers
                     return View(dept);
                 }
 
-                _context.Departments.Update(dept);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var department = _context.Departments.FirstOrDefault(e => e.Uid == Uid);
+                if (department != null)
+                {
+                    department.Name = dept.Name;
+                    _context.Departments.Update(department);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(dept);
+
             }
             catch (Exception ex)
             {
@@ -102,20 +112,29 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var dept = _context.Departments.Find(Id);
+            //var dept = _context.Departments.Find(Id);
+            var dept = _context.Departments.FirstOrDefault(e => e.Uid == Uid);
             return View(dept);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Department dept)
         {
             try
             {
-                _context.Departments.Remove(dept);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var department = _context.Departments.FirstOrDefault(e => e.Uid == dept.Uid);
+                if (department != null) 
+                {
+                    _context.Departments.Remove(department);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(dept);
+
+
             }
             catch (Exception ex)
             {

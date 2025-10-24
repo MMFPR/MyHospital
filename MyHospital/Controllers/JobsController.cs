@@ -51,6 +51,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Job jobs)
         {
             try
@@ -78,6 +79,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Job jobs)
         {
             try
@@ -106,6 +108,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Job jobs)
         {
             try

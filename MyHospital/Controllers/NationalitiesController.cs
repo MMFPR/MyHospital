@@ -52,6 +52,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Nationality nationality)
         {
             try
@@ -79,6 +80,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Nationality nationality)
         {
             try
@@ -107,6 +109,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Nationality nationality)
         {
             try

@@ -1,34 +1,46 @@
 ﻿@model IEnumerable<Category>
 @{
-    ViewData["Title"] = "الفئات الطبية";
+    ViewData["Title"] = "Manage Categorys";
 }
 
-<div class="container-fluid py-5">
-    <div class="p-5 mb-5 bg-light rounded-4 shadow-sm text-center">
-        <h1 class="fw-bold text-primary">الفئات الطبية</h1>
-        <p class="fs-5 text-muted mt-3">
-            تصفّح التخصصات الطبية المتاحة في المنصّة، واختر القسم المناسب لاحتياجاتك.
-        </p>
-        <a class="btn btn-primary btn-lg px-4 mt-3" asp-controller="Categories" asp-action="Manage">
-            الاضافة | التعديل | الحذف
-        </a>
+<h1>Manage Categorys || Add Edit Delete</h1>
+
+<div class="container">
+
+    <div class="text-end">
+
+        <a asp-controller="Categories" asp-action="Create" class="btn btn-outline-primary">Add New</a>
+
     </div>
 
 
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
 
-    <div class="row gy-4 gx-4">
-    @foreach (var category in Model)
-    {
-        <div class="col-12 col-sm-6 col-lg-4 mb-2">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title text-success">@category.Name</h5>
-                    <p class="card-text text-secondary">@category.Description</p>
-                </div>
-            </div>
-        </div>
-    }
+            @foreach (var category in Model)
+            {
+
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>@category.Description</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-Uid="@category.Uid" class="btn btn-outline-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-Uid="@category.Uid" class="btn btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+
+            }
+
+
+        </tbody>
+    </table>
 </div>
-</div>
-
-

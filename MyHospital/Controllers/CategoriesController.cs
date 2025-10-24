@@ -52,6 +52,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
             try
@@ -72,14 +73,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var category = _context.Categories.Find(Id);
+            //var category = _context.Categories.Find(Id);
+            var category = _context.Categories.FirstOrDefault(e=>e.Uid == Uid);
             return View(category);
         }
 
         [HttpPost]
-        public IActionResult Edit(Category category)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category, string Uid)
         {
             try
             {
@@ -87,10 +90,17 @@ namespace MyHospital.Controllers
                 {
                     return View(category);
                 }
+                var cate= _context.Categories.FirstOrDefault(e => e.Uid == Uid);
+                if (cate != null) 
+                { 
+                    cate.Name = category.Name;
+                    cate.Description = category.Description;
+                    _context.Categories.Update(cate);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(category);
 
-                _context.Categories.Update(category);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -100,20 +110,28 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var category = _context.Categories.Find(Id);
+            //var category = _context.Categories.Find(Id);
+            var category = _context.Categories.FirstOrDefault(e => e.Uid == Uid);
             return View(category);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Category category)
         {
             try
             {
-                _context.Categories.Remove(category);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var cate = _context.Categories.FirstOrDefault(e => e.Uid == category.Uid);
+                if (cate != null) 
+                {
+                    _context.Categories.Remove(cate);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(category);
+
             }
             catch (Exception ex)
             {
@@ -122,20 +140,20 @@ namespace MyHospital.Controllers
         }
 
 
-        // صفحة الإدارة (قائمة جدوليّة لإدارة الفئات)
-        [HttpGet]
-        public IActionResult Manage()
-        {
-            try
-            {
-                IEnumerable<Category> categories = _context.Categories.ToList();
-                return View(categories);
-            }
-            catch (Exception ex)
-            {
-                return Content("حدث خطا غير متوقع يرجي مراجهة الدعم الفني:0565455252545");
-            }
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

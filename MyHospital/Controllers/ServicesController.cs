@@ -22,6 +22,17 @@ namespace MyHospital.Controllers
             try
             {
                 IEnumerable<Service> services = _context.Services.ToList();
+
+
+                ////تحديث Uid 
+                //foreach (var item in services)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
+                //    _context.Services.Update(item);
+                //    _context.SaveChanges();
+                //}
+
+
                 return View(services);
             }
             catch (Exception ex)
@@ -40,6 +51,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Service service)
         {
             try
@@ -67,6 +79,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Service service)
         {
             try
@@ -95,6 +108,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Service service)
         {
             try
@@ -110,20 +124,16 @@ namespace MyHospital.Controllers
         }
 
 
-        // صفحة الإدارة (قائمة جدوليّة لإدارة الفئات)
-        [HttpGet]
-        public IActionResult Manage()
-        {
-            try
-            {
-                IEnumerable<Service> service = _context.Services.ToList();
-                return View(service);
-            }
-            catch (Exception ex)
-            {
-                return Content("حدث خطا غير متوقع يرجي مراجهة الدعم الفني:0565455252545");
-            }
-        }
+
+
+
+
+
+
+
+
+
+
 
 
 

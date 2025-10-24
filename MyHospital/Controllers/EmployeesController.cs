@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyHospital.Data;
 using MyHospital.Models;
 using System;
+using System.Security.Cryptography;
 
 
 namespace MyHospital.Controllers
@@ -86,6 +87,7 @@ namespace MyHospital.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Employee emp)
         {
             try
@@ -106,28 +108,53 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var emp = _context.Employees.Find(Id); 
+            //var emp = _context.Employees.Find(Id);
+            var emp = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+
             SetNationalityViewBag();
             SetJobViewBag();
             SetDeptViewBag();
             return View(emp);
+
         }
 
         [HttpPost]
-        public IActionResult Edit(Employee emp , int Id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Employee emp, string Uid)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    SetNationalityViewBag();
+                    SetJobViewBag();
+                    SetDeptViewBag();
                     return View(emp);
                 }
 
-                _context.Employees.Update(emp);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var employee = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+                if (employee != null)
+                {
+                    employee.Name = emp.Name;
+                    employee.Gender = emp.Gender;
+                    employee.JobId = emp.JobId;
+                    employee.NationalityId = emp.NationalityId;
+                    employee.Email = emp.Email;
+                    employee.Phone = emp.Phone;
+                    employee.Address = emp.Address;
+                    employee.Salary = emp.Salary;
+                    employee.DepartmentId = emp.DepartmentId;
+
+                    _context.Employees.Update(employee);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(emp);
+                //_context.Employees.Update(emp);
+                //_context.SaveChanges();
+                //return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -137,20 +164,33 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
+
         {
-            var emp = _context.Employees.Find(Id);
+            //var emp = _context.Employees.Find(Id);
+            var emp = _context.Employees
+                        .Include(e => e.Department)
+                        .Include(e => e.Job)
+                        .Include(e => e.Nationality)
+                        .FirstOrDefault(e => e.Uid == Uid);
             return View(emp);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(Employee emp)
         {
             try
             {
-                _context.Employees.Remove(emp);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var employee = _context.Employees.FirstOrDefault(e => e.Uid == emp.Uid);
+                if (employee != null) 
+                {
+                    _context.Employees.Remove(employee);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(emp);
+
             }
             catch (Exception ex)
             {
