@@ -72,15 +72,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var jobs = _context.Jobs.Find(Id);
+            //var jobs = _context.Jobs.Find(Id);
+            var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
             return View(jobs);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Job jobs)
+        public IActionResult Edit(Job jobs, string Uid)
         {
             try
             {
@@ -89,9 +90,16 @@ namespace MyHospital.Controllers
                     return View(jobs);
                 }
 
-                _context.Jobs.Update(jobs);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var job = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+                if (job != null)
+                {
+                    job.Name = jobs.Name;
+
+                    _context.Jobs.Update(job);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(jobs);
             }
             catch (Exception ex)
             {
@@ -101,9 +109,10 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var jobs = _context.Jobs.Find(Id);
+            //var jobs = _context.Jobs.Find(Id);
+            var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
             return View(jobs);
         }
 
@@ -113,9 +122,14 @@ namespace MyHospital.Controllers
         {
             try
             {
-                _context.Jobs.Remove(jobs);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var item = _context.Jobs.FirstOrDefault(e => e.Uid == jobs.Uid);
+                if (item != null)
+                {
+                    _context.Jobs.Remove(item);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(jobs);
             }
             catch (Exception ex)
             {

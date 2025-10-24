@@ -73,15 +73,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var nationality = _context.Nationalities.Find(Id);
+            //var nationality = _context.Nationalities.Find(Id);
+            var nationality = _context.Nationalities.FirstOrDefault(e => e.Uid == Uid);
             return View(nationality);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Nationality nationality)
+        public IActionResult Edit(Nationality nationality, string Uid)
         {
             try
             {
@@ -90,9 +91,17 @@ namespace MyHospital.Controllers
                     return View(nationality);
                 }
 
-                _context.Nationalities.Update(nationality);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var n = _context.Nationalities.FirstOrDefault(e => e.Uid == Uid);
+                if (n != null)
+                {
+                    n.Name = nationality.Name;
+
+                    _context.Nationalities.Update(n);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(nationality);
+
             }
             catch (Exception ex)
             {
@@ -102,9 +111,10 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var nationality = _context.Nationalities.Find(Id);
+            //var nationality = _context.Nationalities.Find(Id);
+            var nationality = _context.Nationalities.FirstOrDefault(e => e.Uid == Uid);
             return View(nationality);
         }
 
@@ -114,9 +124,14 @@ namespace MyHospital.Controllers
         {
             try
             {
-                _context.Nationalities.Remove(nationality);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var item = _context.Nationalities.FirstOrDefault(e => e.Uid == nationality.Uid);
+                if (item != null)
+                {
+                    _context.Nationalities.Remove(item);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(nationality);
             }
             catch (Exception ex)
             {

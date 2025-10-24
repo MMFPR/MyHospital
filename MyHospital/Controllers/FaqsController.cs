@@ -26,13 +26,13 @@ namespace MyHospital.Controllers
                 IEnumerable<Faq> faq = _context.Faqs.ToList();
 
                 //تحديث Uid 
-                foreach (var item in faq)
-                {
-                    item.Uid = Guid.NewGuid().ToString();
+                //foreach (var item in faq)
+                //{
+                //    item.Uid = Guid.NewGuid().ToString();
 
-                    _context.Faqs.Update(item);
-                    _context.SaveChanges();
-                }
+                //    _context.Faqs.Update(item);
+                //    _context.SaveChanges();
+                //}
 
                 return View(faq);
             }
@@ -74,15 +74,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var faq = _context.Faqs.Find(Id);
+            //var faq = _context.Faqs.Find(Id);
+            var faq = _context.Faqs.FirstOrDefault(e => e.Uid == Uid);
             return View(faq);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Faq faq)
+        public IActionResult Edit(Faq faq, string Uid)
         {
             try
             {
@@ -91,9 +92,18 @@ namespace MyHospital.Controllers
                     return View(faq);
                 }
 
-                _context.Faqs.Update(faq);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var f = _context.Faqs.FirstOrDefault(e => e.Uid == Uid);
+                if (f != null)
+                {
+                    f.Question = faq.Question;
+                    f.Answer = faq.Answer;
+
+                    _context.Faqs.Update(f);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(faq);
+                
             }
             catch (Exception ex)
             {
@@ -103,9 +113,10 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var faq = _context.Faqs.Find(Id);
+            //var faq = _context.Faqs.Find(Id);
+            var faq = _context.Faqs.FirstOrDefault(e => e.Uid == Uid);
             return View(faq);
         }
 
@@ -115,9 +126,14 @@ namespace MyHospital.Controllers
         {
             try
             {
-                _context.Faqs.Remove(faq);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var item = _context.Faqs.FirstOrDefault(e => e.Uid == faq.Uid);
+                if (item != null)
+                {
+                    _context.Faqs.Remove(item);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(faq);
             }
             catch (Exception ex)
             {

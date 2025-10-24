@@ -72,15 +72,16 @@ namespace MyHospital.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int Id)
+        public IActionResult Edit(string Uid)
         {
-            var service = _context.Services.Find(Id);
+            //var service = _context.Services.Find(Id);
+            var service = _context.Services.FirstOrDefault(e => e.Uid == Uid);
             return View(service);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Service service)
+        public IActionResult Edit(Service service, string Uid)
         {
             try
             {
@@ -89,9 +90,16 @@ namespace MyHospital.Controllers
                     return View(service);
                 }
 
-                _context.Services.Update(service);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var s = _context.Services.FirstOrDefault(e => e.Uid == Uid);
+                if (s != null)
+                {
+                    s.Name = service.Name;
+
+                    _context.Services.Update(s);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(service);
             }
             catch (Exception ex)
             {
@@ -101,9 +109,10 @@ namespace MyHospital.Controllers
 
 
         [HttpGet]
-        public IActionResult Delete(int Id)
+        public IActionResult Delete(string Uid)
         {
-            var service = _context.Services.Find(Id);
+            //var service = _context.Services.Find(Id);
+            var service = _context.Services.FirstOrDefault(e => e.Uid == Uid);
             return View(service);
         }
 
@@ -113,9 +122,14 @@ namespace MyHospital.Controllers
         {
             try
             {
-                _context.Services.Remove(service);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var item = _context.Services.FirstOrDefault(e => e.Uid == service.Uid);
+                if (item != null)
+                {
+                    _context.Services.Remove(item);
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(service);
             }
             catch (Exception ex)
             {
