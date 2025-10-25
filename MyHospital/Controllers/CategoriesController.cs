@@ -1,6 +1,7 @@
 ﻿using majed_asp_mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using MyHospital.Data;
+using MyHospital.Interfaces;
 using MyHospital.Models;
 
 namespace MyHospital.Controllers
@@ -9,11 +10,19 @@ namespace MyHospital.Controllers
     public class CategoriesController : Controller
     { 
 
-        private readonly ApplicationDbContext _context;
-        public CategoriesController(ApplicationDbContext context)
+        //private readonly ApplicationDbContext _context;
+        //public CategoriesController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+
+        private readonly IRepository<Category> _repositoryCategory;
+        public CategoriesController(IRepository<Category> repositoryCategory)
         {
-            _context = context;
+            _repositoryCategory = repositoryCategory;
         }
+
 
         //----------------------------------------------------
 
@@ -23,7 +32,8 @@ namespace MyHospital.Controllers
         {
             try
             {
-                IEnumerable<Category> categories = _context.Categories.ToList();
+                //IEnumerable<Category> categories = _context.Categories.ToList();
+                IEnumerable<Category> categories = _repositoryCategory.GetAll();
 
                 ////تحديث Uid 
                 //foreach (var item in categories)
@@ -62,8 +72,11 @@ namespace MyHospital.Controllers
                     return View(category);
                 }
 
-                _context.Categories.Add(category);
-                _context.SaveChanges();
+                //_context.Categories.Add(category);
+                //_context.SaveChanges();
+
+                _repositoryCategory.Add(category);
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -76,7 +89,8 @@ namespace MyHospital.Controllers
         public IActionResult Edit(string Uid)
         {
             //var category = _context.Categories.Find(Id);
-            var category = _context.Categories.FirstOrDefault(e=>e.Uid == Uid);
+            //var category = _context.Categories.FirstOrDefault(e=>e.Uid == Uid);
+            var category = _repositoryCategory.GetByUId(Uid);
             return View(category);
         }
 
@@ -90,13 +104,18 @@ namespace MyHospital.Controllers
                 {
                     return View(category);
                 }
-                var cate= _context.Categories.FirstOrDefault(e => e.Uid == Uid);
+                //var cate= _context.Categories.FirstOrDefault(e => e.Uid == Uid);
+                var cate= _repositoryCategory.GetByUId(Uid);
                 if (cate != null) 
                 { 
                     cate.Name = category.Name;
                     cate.Description = category.Description;
-                    _context.Categories.Update(cate);
-                    _context.SaveChanges();
+
+                    //_context.Categories.Update(cate);
+                    //_context.SaveChanges();
+
+                    _repositoryCategory.Update(cate);
+
                     return RedirectToAction("Index");
                 }
                 return View(category);
@@ -113,21 +132,26 @@ namespace MyHospital.Controllers
         public IActionResult Delete(string Uid)
         {
             //var category = _context.Categories.Find(Id);
-            var category = _context.Categories.FirstOrDefault(e => e.Uid == Uid);
+            //var category = _context.Categories.FirstOrDefault(e => e.Uid == Uid);
+            var category = _repositoryCategory.GetByUId(Uid);
             return View(category);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Category category)
+        public IActionResult Delete(Category category, string Uid)
         {
             try
             {
-                var cate = _context.Categories.FirstOrDefault(e => e.Uid == category.Uid);
+                //var cate = _context.Categories.FirstOrDefault(e => e.Uid == category.Uid);
+                var cate = _repositoryCategory.GetByUId(Uid);
                 if (cate != null) 
                 {
-                    _context.Categories.Remove(cate);
-                    _context.SaveChanges();
+                    //_context.Categories.Remove(cate);
+                    //_context.SaveChanges();
+
+                    _repositoryCategory.Delete(cate.Uid);
+
                     return RedirectToAction("Index");
                 }
                 return View(category);

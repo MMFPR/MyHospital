@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyHospital.Data;
+using MyHospital.Interfaces;
+using MyHospital.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,9 @@ builder.Services.AddSession(builder =>
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options
 .UseSqlServer(connectionString));
+
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
 
 var app = builder.Build();
 

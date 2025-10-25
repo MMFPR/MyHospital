@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyHospital.Data;
+using MyHospital.Interfaces;
 using MyHospital.Models;
 using System;
 using System.Security.Cryptography;
@@ -14,10 +15,17 @@ namespace MyHospital.Controllers
     public class EmployeesController : Controller
     {
 
-        private readonly ApplicationDbContext _context;
-        public EmployeesController(ApplicationDbContext context)
+        //private readonly ApplicationDbContext _context;
+        //public EmployeesController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        private readonly IRepository<Employee> _repositoryEmployee;
+
+        public EmployeesController(IRepository<Employee> repositoryEmployee)
         {
-            _context = context;
+            _repositoryEmployee = repositoryEmployee;
         }
 
 
@@ -28,7 +36,8 @@ namespace MyHospital.Controllers
         {
             try
             {
-                IEnumerable<Employee> emp = _context.Employees.Include(e => e.Department).Include(j => j.Job).Include(n => n.Nationality).ToList();
+                //IEnumerable<Employee> emp = _context.Employees.Include(e => e.Department).Include(j => j.Job).Include(n => n.Nationality).ToList();
+                IEnumerable<Employee> emp = _repositoryEmployee.GetAll();
 
                 // //تحديث Uid 
                 //foreach(var item in emp)
@@ -54,21 +63,31 @@ namespace MyHospital.Controllers
 
         private void SetDeptViewBag()
         {
-            IEnumerable<Department> dapts = _context.Departments.ToList();
+            //IEnumerable<Department> dapts = _context.Departments.ToList();
+            IEnumerable<Department> dapts = _repositoryEmployee.GetAll()
+                .Select(e => e.Department)
+                .Distinct()
+                .ToList();
             SelectList selectListItems = new SelectList(dapts, "Id", "Name");
             ViewBag.Departments = selectListItems;
         }
 
         private void SetNationalityViewBag()
         {
-            IEnumerable<Nationality> nationality = _context.Nationalities.ToList();
+            //IEnumerable<Nationality> nationality = _context.Nationalities.ToList();
+            IEnumerable<Nationality> nationality = _repositoryEmployee.GetAll()
+                .Select(e => e.Nationality).Distinct().ToList();
+
+
             SelectList selectListItems = new SelectList(nationality, "Id", "Name");
             ViewBag.Nationalities = selectListItems;
         }
 
         private void SetJobViewBag()
         {
-            IEnumerable<Job> job = _context.Jobs.ToList();
+            //IEnumerable<Job> job = _context.Jobs.ToList();
+            IEnumerable<Job> job = _repositoryEmployee.GetAll()
+                .Select(e => e.Job).Distinct().ToList();
             SelectList selectListItems = new SelectList(job, "Id", "Name");
             ViewBag.Jobs = selectListItems;
         }
@@ -97,8 +116,10 @@ namespace MyHospital.Controllers
                     return View(emp);
                 }
 
-                _context.Employees.Add(emp);
-                _context.SaveChanges();
+                //_context.Employees.Add(emp);
+                //_context.SaveChanges();
+
+                _repositoryEmployee.Add(emp);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -111,7 +132,8 @@ namespace MyHospital.Controllers
         public IActionResult Edit(string Uid)
         {
             //var emp = _context.Employees.Find(Id);
-            var emp = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+            //var emp = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+            var emp = _repositoryEmployee.GetByUId(Uid);
 
             SetNationalityViewBag();
             SetJobViewBag();
@@ -134,7 +156,8 @@ namespace MyHospital.Controllers
                     return View(emp);
                 }
 
-                var employee = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+                //var employee = _context.Employees.FirstOrDefault(e => e.Uid == Uid);
+                var employee = _repositoryEmployee.GetByUId(Uid);
                 if (employee != null)
                 {
                     employee.Name = emp.Name;
@@ -147,8 +170,11 @@ namespace MyHospital.Controllers
                     employee.Salary = emp.Salary;
                     employee.DepartmentId = emp.DepartmentId;
 
-                    _context.Employees.Update(employee);
-                    _context.SaveChanges();
+                    //_context.Employees.Update(employee);
+                    //_context.SaveChanges();
+
+                    _repositoryEmployee.Update(employee);
+
                     return RedirectToAction("Index");
                 }
                 return View(emp);
@@ -168,11 +194,12 @@ namespace MyHospital.Controllers
 
         {
             //var emp = _context.Employees.Find(Id);
-            var emp = _context.Employees
-                        .Include(e => e.Department)
-                        .Include(e => e.Job)
-                        .Include(e => e.Nationality)
-                        .FirstOrDefault(e => e.Uid == Uid);
+            //var emp = _context.Employees
+            //            .Include(e => e.Department)
+            //            .Include(e => e.Job)
+            //            .Include(e => e.Nationality)
+            //            .FirstOrDefault(e => e.Uid == Uid);
+            var emp = _repositoryEmployee.GetByUId(Uid);
             return View(emp);
         }
 
@@ -182,11 +209,14 @@ namespace MyHospital.Controllers
         {
             try
             {
-                var employee = _context.Employees.FirstOrDefault(e => e.Uid == emp.Uid);
+                //var employee = _context.Employees.FirstOrDefault(e => e.Uid == emp.Uid);
+                var employee = _repositoryEmployee.GetByUId(emp.Uid);
                 if (employee != null) 
                 {
-                    _context.Employees.Remove(employee);
-                    _context.SaveChanges();
+                    //_context.Employees.Remove(employee);
+                    //_context.SaveChanges();
+
+                    _repositoryEmployee.Delete(employee.Uid);
                     return RedirectToAction("Index");
                 }
                 return View(emp);

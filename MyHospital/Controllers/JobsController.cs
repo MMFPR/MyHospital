@@ -1,6 +1,7 @@
 ﻿using majed_asp_mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using MyHospital.Data;
+using MyHospital.Interfaces;
 using MyHospital.Models;
 
 namespace MyHospital.Controllers
@@ -9,10 +10,16 @@ namespace MyHospital.Controllers
     public class JobsController : Controller
     {
 
-        private readonly ApplicationDbContext _context;
-        public JobsController(ApplicationDbContext context)
+        //private readonly ApplicationDbContext _context;
+        //public JobsController(ApplicationDbContext context)
+        //{
+        //    _context = context;
+        //}
+
+        private readonly IRepository<Job> _repositoryJob;
+        public JobsController(IRepository<Job> repositoryJob)
         {
-            _context = context;
+            _repositoryJob = repositoryJob;
         }
 
 
@@ -23,7 +30,8 @@ namespace MyHospital.Controllers
         {
             try
             {
-                IEnumerable<Job> jobs = _context.Jobs.ToList();
+                //IEnumerable<Job> jobs = _context.Jobs.ToList();
+                IEnumerable<Job> jobs = _repositoryJob.GetAll();
 
                 ////تحديث Uid 
                 //foreach (var item in jobs)
@@ -61,8 +69,10 @@ namespace MyHospital.Controllers
                     return View(jobs);
                 }
 
-                _context.Jobs.Add(jobs);
-                _context.SaveChanges();
+                //_context.Jobs.Add(jobs);
+                //_context.SaveChanges();
+
+                _repositoryJob.Add(jobs);
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -75,7 +85,8 @@ namespace MyHospital.Controllers
         public IActionResult Edit(string Uid)
         {
             //var jobs = _context.Jobs.Find(Id);
-            var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+            //var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+            var jobs = _repositoryJob.GetByUId(Uid);
             return View(jobs);
         }
 
@@ -90,13 +101,17 @@ namespace MyHospital.Controllers
                     return View(jobs);
                 }
 
-                var job = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+                //var job = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+                var job = _repositoryJob.GetByUId(Uid);
                 if (job != null)
                 {
                     job.Name = jobs.Name;
 
-                    _context.Jobs.Update(job);
-                    _context.SaveChanges();
+                    //_context.Jobs.Update(job);
+                    //_context.SaveChanges();
+
+                    _repositoryJob.Update(job);
+
                     return RedirectToAction("Index");
                 }
                 return View(jobs);
@@ -112,7 +127,8 @@ namespace MyHospital.Controllers
         public IActionResult Delete(string Uid)
         {
             //var jobs = _context.Jobs.Find(Id);
-            var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+            //var jobs = _context.Jobs.FirstOrDefault(e => e.Uid == Uid);
+            var jobs = _repositoryJob.GetByUId(Uid);
             return View(jobs);
         }
 
@@ -122,11 +138,15 @@ namespace MyHospital.Controllers
         {
             try
             {
-                var item = _context.Jobs.FirstOrDefault(e => e.Uid == jobs.Uid);
+                //var item = _context.Jobs.FirstOrDefault(e => e.Uid == jobs.Uid);
+                var item = _repositoryJob.GetByUId(jobs.Uid);
                 if (item != null)
                 {
-                    _context.Jobs.Remove(item);
-                    _context.SaveChanges();
+                    //_context.Jobs.Remove(item);
+                    //_context.SaveChanges();
+
+                    _repositoryJob.Delete(item.Uid);
+
                     return RedirectToAction("Index");
                 }
                 return View(jobs);
