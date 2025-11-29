@@ -3,38 +3,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyHospital.Models
 {
-    public class Employee
+    public class Nurse
     {
         [Key]
         public int Id { get; set; }
         public string Uid { get; set; } = Guid.NewGuid().ToString();
+
         public string Name { get; set; }
         public string Gender { get; set; }
-        public string NationalId { get; set; }
-        public string BloodType { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
         public string Phone { get; set; }
-        public string Address { get; set; }
-        public string? Position { get; set; }
-        public decimal Salary { get; set; }
-        public DateTime CreatAccount { get; set; } = DateTime.Now;
+        public string Email { get; set; }
+        public string NationalId { get; set; }
 
+        public string Shift { get; set; }     // Morning, Evening, Night
+        public string? Notes { get; set; }     // ملاحظات
 
-        //--------------------
-
+        // 🔵 العلاقة مع القسم (Department)
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }
         public Department? Department { get; set; }
 
+        // 🔵 العلاقة مع الجنسيات (Nationality)
         [ForeignKey("Nationality")]
         public int? NationalityId { get; set; }
         public Nationality? Nationality { get; set; }
-
-        [ForeignKey("Job")]
-        public int? JobId { get; set; }
-        public Job? Job { get; set; }
-
-
     }
 }

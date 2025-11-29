@@ -22,6 +22,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options
 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(MainRepository<>));
+builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+
+
+
+
 
 var app = builder.Build();
 
